@@ -1,0 +1,29 @@
+service:
+  appname: CarefreeSky
+  network: tcp
+  port: 8088
+
+log:
+  path: ./log/rivergod.log
+  rotationtime: 1 #多久分割一次日志，单位：hour
+  level: info
+  withmaxage: 7 #保留n天内的日志，单位：day
+
+registry:
+  addr: 127.0.0.1:2379 #多个以空格隔开
+  basepath: /carefreesky
+  updateinterval: 60 #second
+  group: dev
+
+mysql:
+  write: root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+  read: root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+
+rpc:
+  withtimout: 2 #second
+
+ratelimit:
+  enable: false
+  # 每fillinterval秒内生成多少个token
+  fillinterval: 1 # 单位: second
+  token: 10000
