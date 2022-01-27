@@ -1,29 +1,39 @@
-service:
-  appname: CarefreeSky
-  network: tcp
-  port: 8088
+Service:
+  Name: CarefreeX
+  Network: tcp
+  Port: 8088
 
-log:
-  path: ./log/rivergod.log
-  rotationtime: 1 #多久分割一次日志，单位：hour
-  level: info
-  withmaxage: 7 #保留n天内的日志，单位：day
+Log:
+  Path: /Users/weijiexu/Work/framwork/carefreex/log/carefree_x.log
+  RotationTime: 1 #多久分割一次日志，单位：hour
+  Level: info
+  WithMaxAge: 7 #保留n天内的日志，单位：day
 
-registry:
-  addr: 127.0.0.1:2379 #多个以空格隔开
-  basepath: /carefreesky
-  updateinterval: 60 #second
-  group: dev
+Registry:
+  Addr: 127.0.0.1:2379 #多个以空格隔开
+  BasePath: /carefreex
+  UpdateInterval: 60 #second
+  Group: dev
 
-mysql:
-  write: root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
-  read: root:@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+Mysql:
+  Read: root:1@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
+  Write: root:1@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=True&loc=Local
 
-rpc:
-  withtimout: 2 #second
+MysqlConf:
+  TablePrefix:
+  MaxIdleConn: 0 #0-无限制
+  MaxOpenConn: 0 #0-表示无限制
+  MaxLifetime: 0 #默认0，单位second
+  Log:
+    SlowThreshold: 200 #慢查询，单位Millisecond，使用gorm时该配置有效
+    ShowSql: true #是否打印sql到日志文件
+    IgnoreRecordNotFoundError: false #是否忽略未找到记录错误，使用gorm时该配置有效
 
-ratelimit:
-  enable: false
+Rpc:
+  WithTimout: 2 #second
+
+RateLimit:
+  Enable: false
   # 每fillinterval秒内生成多少个token
-  fillinterval: 1 # 单位: second
-  token: 10000
+  FillInterval: 1 # 单位: second
+  Token: 10000
