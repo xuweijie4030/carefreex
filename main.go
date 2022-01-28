@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	config.DefaultCustomOptions.Path = "./conf/conf.yaml"
 	config.InitConfig()
 
 	logger.InitLogger()

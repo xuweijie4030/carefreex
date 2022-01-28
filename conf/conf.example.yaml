@@ -4,7 +4,7 @@ Service:
   Port: 8088
 
 Log:
-  Path: /Users/weijiexu/Work/framwork/carefreex/log/carefree_x.log
+  Path:/home/log/carefree_x.log
   RotationTime: 1 #多久分割一次日志，单位：hour
   Level: info
   WithMaxAge: 7 #保留n天内的日志，单位：day
