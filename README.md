@@ -1,16 +1,47 @@
-### Hi there 👋
+## CarefreeX
 
-<!--
-**carefreex/carefreex** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+一个基于`rpcx`实现的非常便于开发的`go`微服务框架
 
-Here are some ideas to get you started:
+## 快速开始
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+```shell
+# 1.下载源码
+git clone https://github.com/xuweijie4030/carefreex.git
+
+# 2.进入框架
+cd ./carefreex
+
+# 3.编译(默认使用etcdV3作为注册中心)
+make
+
+# 4.启动
+./bin/carefreex
+```
+## 框架特点
+`CarefreeX`最主要的特点和名字一样，就是为了让开发人员实现除了业务逻辑外，其他都不需要关注和考虑。框架提供了**配置文件系统**、**日志系统**、**数据库系统**、**RpcServer**和**RpcClient**、**代码生成器**这些基础设置，另外提供了一套代码分层设计目录，初次之外并没有其他限制。同时所有的基础设置也都可以根据自己的需求定制化。
+### 配置文件
+`CarefreeX`配置文件采用`viper`包实现，对`viper`做了简易封装；
+### 日志
+1. `CarefreeX`日志采用`lorus`包实现，并做了日志分割处理，可通过配置文件自由配置各项参数；
+2. 可根据项目需求，自由配置需要自动记录的context字段，并对`lorus`提供的所有方法实现了`ActionX`系列方法，需要自动记录配置的context字段时可调用`ActionX`系列方法，可通过该方法实现跨服务日志追踪；
+3. 可准确记录调用`lorus`任意方法（包含`ActionX`系列方法）的源文件、行号和调用方法；
+### 数据库
+1. 支持`gorm`和`xorm`，可根据需求任选其一；
+2. 实现读写分离，根据业务场景，通过参数灵活决定连接读库还是写库，默认连接读库；
+3. `gorm`和`xorm`的日志已通过框架日志重新实现，保证日志输出统一，支持`context`传递和`context`字段记录；
+### RpcxServer
+1. 封装并简化实例化`rpcx server`，一行代码启动`rpc`服务；
+2. 提供`rpc`服务启动前要执行的方法的注册入口；
+3. 实现平滑退出，并提供服务退出前要执行的方法的注册入口；
+### RpcxClient
+1. 封装并简化实例化`rpcx client`，只需要极为简单的配置加一行启动代码就可以启动`rpc`客户端；
+2. 简化客户端调用`超时`和`断路由`实现，只需要两项配置即可完成，当然框架也提供的默认的`超时`和`断路由`规则，如果可以满足业务需求则无需关注这两项配置；
+### 代码生成器
+1. 支持`rpcx server`接口代码文件生成器，使用者只关注你需要开发哪些`rpc`接口就可以了，开发完成后一行命令搞定启动`rpcx server`服务时需要注册的接口；
+2. 支持生成框架可对外提供的所有`rpcx client`调用文件；
+3. 支持`gorm`或`xorm`的`model`文件生成器，数据库变更后，通过命令自动更新model文件；
+
+## 开发者
+
+· 徐炜杰(@xuweijie4030)
+
