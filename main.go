@@ -1,6 +1,7 @@
 package main
 
 import (
+	"carefreex/app/daemon"
 	"github.com/carefreex-io/config"
 	"github.com/carefreex-io/dbdao/gormdb"
 	"github.com/carefreex-io/logger"
@@ -18,6 +19,8 @@ func main() {
 
 	rpcxserver.DefaultCustomOptions.Service = NewService()
 	s := rpcxserver.NewServer()
+
+	daemon.Register(s)
 
 	s.Start()
 }
